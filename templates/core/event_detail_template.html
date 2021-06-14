@@ -1,0 +1,20 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    {{ event.title }}
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'index' %}">Назад</a>
+    <div class="projects">
+        <div class="d-flex justify-content-between">
+            <h2>Событие {{ event.title }}</h2>
+        </div>
+        <span class='lead'>{{ event.dt_start }} </span>
+        <span class='lead'>{{ event.dt_end }} </span>
+        <div class='body'>{{ event.city|safe }} </div>
+        {% for theme in event.themes.all %}
+            <span class='lead'>{{ theme.title }} </span>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+     Поиск событий
+{% endblock %}
+
+{% block header %}
+        {% if request.user.is_authenticated %}
+        <div class="d-flex justify-content-between">
+            <div class="center">
+                <a href="{% url 'account_logout' %}">Выйти</a>
+                <a href="{% url 'core:notifications' %}">Уведомления ({{ notifications.count }})</a>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock %}
+
+{% block content %}
+    <div class="projects">
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'index' %}"><h2>Поиск событий</h2></a>
+            <form action="{% url 'core:search_results' user.pk %}" method="get">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Найти" name="search" class="btn btn-md btn-secondary">
+                <input type="submit" value="Найти и запомнить"
+                       name="save" class="btn btn-md btn-secondary">
+            </form>
+        </div>
+        {% for event in events %}
+                <a href={% url 'core:event' event.pk %}>{{ event.title }}</a><br>
+        {% endfor %}
+    </div>
+{% endblock %}

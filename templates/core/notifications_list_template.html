@@ -1,0 +1,25 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Уведомления
+{% endblock %}
+
+{{% block content %}
+    <div class="projects">
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'index' %}">Назад</a>
+            <h2>Уведомления</h2>
+        </div>
+        {% for notification in notifications %}
+            <div class="d-flex justify-content-between">
+                <a href={% url 'core:event' notification.event.pk %}>Новое событие для вас: {{ notification.event.title }}.</a>
+                <p>Добавлено в {{ notification.created_at }}</p>
+{#                <button onclick="{% url 'core:delete_notify' notification.id %}" type="button">Удалить</button>#}
+                <form method="post" action="{% url 'core:delete_notify' notification.id %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Удалить">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

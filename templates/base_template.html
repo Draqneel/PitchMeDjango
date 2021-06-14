@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% block gloabal_content_block %}
+    <section class="content-section d-flex">
+        <div class="outer-section-up-nav" direction="left"></div>
+        <div class="container content-column">
+            <div class="row ">
+                {% block content_container %}
+                    <div class="col-12 col-lg-10 px-lg-0">
+                        <div class="content-container">
+                        {% block content_container_inner %}
+                            <div class="content">
+                                {% block content %}
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+        <div class="outer-section-up-nav" direction="right"></div>
+    </section>
+{% endblock %}
+{% endblock %}
