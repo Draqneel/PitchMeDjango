@@ -54,22 +54,6 @@ class SearchListView(LoginRequiredMixin, ListView):
 
         return query_set
 
-    def clean(self):
-        if 'save' in self.request.GET:
-            user_id = self.request.GET.get('pk')
-            city = self.request.GET.get('city')
-            start = self.request.GET.get('start_bound')
-            end = self.request.GET.get('end_bound')
-            themes = self.request.GET.getlist('themes')
-            item = UserFilter(
-                user=User.objects.get(pk=user_id),
-                city=City.objects.get(pk=city),
-                dt_start=start,
-                dt_end=end,
-                themes=themes
-            )
-            item.save()
-
     def get_context_data(self, *, object_list=None, **kwargs):
         ctx = super(SearchListView, self).get_context_data(**kwargs)
         ctx['form'] = FilterForm()
